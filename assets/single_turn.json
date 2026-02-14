@@ -1,0 +1,62 @@
+[
+    {
+        "reference": "assets/ref/female1.wav",
+        "audio_path": "assets/synth/female1_sent1.wav",
+        "text": "那肯定因为自个儿平时想吃点卤味儿。那肯定得得得来一点儿。"
+    },
+    {
+        "reference": "assets/ref/female1.wav",
+        "audio_path": "assets/synth/female1_sent2.wav",
+        "text": "过年应该应该跟家里人一起吃饭。"
+    },
+    {
+        "reference": "assets/ref/female1.wav",
+        "audio_path": "assets/synth/female1_sent3.wav",
+        "text": "哎呀，不是了，现在法治社会哪有卖假货的，只是卖的价格贵。"
+    },
+    {
+        "reference": "assets/ref/female2.wav",
+        "audio_path": "assets/synth/female2_sent4.wav",
+        "text": "但是这个时候上哪去找呢？找不到。"
+    },
+    {
+        "reference": "assets/ref/female2.wav",
+        "audio_path": "assets/synth/female2_sent5.wav",
+        "text": "这种做法我感觉不适合，不是他那个年龄段该做出来的事情。"
+    },
+    {
+        "reference": "assets/ref/female2.wav",
+        "audio_path": "assets/synth/female2_sent6.wav",
+        "text": "咱们得趁这个时机啊，看看还要剩多多久啊。"
+    },
+    {
+        "reference": "assets/ref/male1.wav",
+        "audio_path": "assets/synth/male1_sent7.wav",
+        "text": "我我不不怎么玩游戏，你你会玩游戏啊。"
+    },
+    {
+        "reference": "assets/ref/male1.wav",
+        "audio_path": "assets/synth/male1_sent8.wav",
+        "text": "对呀，就是不管你愿不愿意，时间都是一直往前推嘛。"
+    },
+    {
+        "reference": "assets/ref/male1.wav",
+        "audio_path": "assets/synth/male1_sent9.wav",
+        "text": "挺好，我看着我看你做菜做饭蛮有生活的那是鸡蛋糕吗？"
+    },
+    {
+        "reference": "assets/ref/male2.wav",
+        "audio_path": "assets/synth/male2_sent10.wav",
+        "text": "我也有二十多岁的时候，那个时候什么都不想，嗯，等那一点点沉淀，年龄大一点了，然后就什么都在乎，什么都想。"
+    },
+    {
+        "reference": "assets/ref/male2.wav",
+        "audio_path": "assets/synth/male2_sent11.wav",
+        "text": "我看我一会儿，我我煮个泡面得了。"
+    },
+    {
+        "reference": "assets/ref/male2.wav",
+        "audio_path": "assets/synth/male2_sent12.wav",
+        "text": "他们说那个茶茶饼就是渣子压出来的，是吗？"
+    }
+]

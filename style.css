@@ -1,0 +1,370 @@
+/* style.css - Academic Minimalist Theme (Final Version) */
+
+/* --- 1. 基础变量与重置 (Variables & Reset) --- */
+:root {
+    /* 配色方案 */
+    --bg-body: #f8f9fa;          /* 页面背景 */
+    --bg-card: #ffffff;          /* 卡片背景 */
+    --text-primary: #1a202c;     /* 主标题色 */
+    --text-secondary: #718096;   /* 次要文字色 */
+    --accent-color: #3182ce;     /* 强调色 (蓝) */
+    --border-color: #e2e8f0;     /* 边框色 */
+    
+    /* 阴影与圆角 */
+    --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+    --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+    --radius-lg: 12px;
+    --radius-md: 8px;
+
+    /* 对话气泡颜色 */
+    --user-bubble: #edf2f7;      /* 用户气泡 (浅灰) */
+    --ai-bubble: #3182ce;        /* Assistant 气泡 (蓝) */
+    --text-ai: #ffffff;          /* Assistant 文字 (白) */
+    --highlight: #dd6b20;        /* 播放高亮色 (橙) */
+}
+
+* { box-sizing: border-box; }
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: var(--bg-body);
+    color: var(--text-primary);
+    line-height: 1.6;
+    margin: 0;
+    padding: 60px 20px;
+    -webkit-font-smoothing: antialiased;
+}
+
+.container {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+/* --- 2. 页面头部 (Paper Header) --- */
+.paper-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.paper-header h1 {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 12px;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
+
+/* Paper Link */
+.paper-link {
+    margin-bottom: 16px;
+    font-family: monospace;
+    font-size: 1.1rem;
+}
+
+.paper-link a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.paper-link a:hover { text-decoration: underline; }
+
+/* Authors & Affiliations */
+.authors {
+    font-size: 1.1rem;
+    color: #2d3748;
+    margin-bottom: 6px;
+}
+
+.author { margin: 0 6px; }
+
+.affiliations {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+.affiliation { margin: 0 8px; }
+
+/* --- 3. 通用信息卡片 (Abstract, Contents, Arch) --- */
+.info-card {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    margin-bottom: 40px;
+    overflow: hidden;
+}
+
+.card-header {
+    background-color: #f7fafc;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border-color);
+    font-weight: 700;
+    color: #2d3748;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.card-body {
+    padding: 24px 30px;
+    background: #fff;
+}
+
+#abstract .card-body p {
+    text-align: justify;
+}
+
+.card-body p {
+    margin: 0;
+    text-align: justify;
+    color: #4a5568;
+    line-height: 1.7;
+}
+
+/* 目录列表 */
+.toc-list {
+    list-style-type: disc;
+    padding-left: 20px;
+    margin: 0;
+}
+.toc-list li { margin-bottom: 8px; color: var(--text-secondary); }
+.toc-list a {
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 500;
+    border-bottom: 1px dashed transparent;
+    transition: border 0.2s;
+}
+.toc-list a:hover { border-bottom-color: var(--accent-color); }
+
+/* 架构图 */
+.arch-img {
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #edf2f7;
+    border-radius: 4px;
+    display: block;
+    margin: 0 auto 12px auto;
+}
+.caption {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-top: 8px;
+}
+
+/* --- 4. 单句展示 (List View) --- */
+.section-title-area {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.subtitle { color: var(--text-secondary); font-size: 1.1rem; }
+
+/* 复用 .info-card 作为容器，这里定义内部列表样式 */
+.group-header {
+    /* 特殊化 Header，包含播放器 */
+    background-color: #f7fafc;
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.ref-label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #4a5568;
+    font-weight: 700;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+.ref-label::before {
+    content: ""; display: inline-block; width: 8px; height: 8px;
+    background-color: var(--accent-color); border-radius: 50%; margin-right: 8px;
+}
+
+.sample-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.sample-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 24px;
+    border-bottom: 1px solid #edf2f7;
+    gap: 24px;
+    transition: background-color 0.2s;
+}
+.sample-row:last-child { border-bottom: none; }
+.sample-row:hover { background-color: #fcfcfc; }
+
+.sample-text {
+    flex: 1;
+    font-size: 0.95rem;
+    color: var(--text-primary);
+    font-style: italic;
+    line-height: 1.5;
+    min-width: 0;
+}
+
+.sample-row audio {
+    width: 260px;
+    height: 32px;
+    flex-shrink: 0;
+}
+
+/* --- 5. 对话展示 (Dialogue Chat UI) --- */
+.dialogue-card { display: flex; flex-direction: column; }
+.dialogue-card audio { display: block; width: 100%; }
+
+/* 对话头部：左侧Ref+右侧按钮 */
+.dialogue-header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+.header-left { display: flex; align-items: center; gap: 15px; }
+
+.ref-audio { height: 32px; width: 200px; }
+
+.btn-play-all {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 6px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+.btn-play-all:hover { background-color: #2b6cb0; }
+
+.chat-box {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* .message-row {
+    display: flex;
+    align-items: flex-start;
+    max-width: 85%;
+    gap: 12px;
+} */
+
+.message-row {
+    display: flex;
+    flex-direction: row; /* 强制所有角色都是从左到右 */
+    align-items: center; /* 垂直居中 */
+    justify-content: space-between; /* 两端对齐：左边内容 vs 右边音频 */
+    width: 100%;
+    padding: 20px 24px;
+    border-bottom: 1px solid #edf2f7;
+    gap: 20px;
+    transition: background-color 0.2s;
+}
+
+.message-left {
+    display: flex !important;       /* 强制 Flex */
+    flex-direction: row !important; /* 强制横向排列 (解决纵向堆叠的关键) */
+    align-items: center;            /* 垂直居中 */
+    gap: 16px;                      /* 图标和文字的间距 */
+    flex: 1;                        /* 占据中间剩余空间 */
+    min-width: 0;
+    margin-right: 20px;
+}
+
+/* User 右侧 */
+.message-row.user { align-self: auto; }
+/* Assistant 左侧 */
+.message-row.assistant { align-self: flex-start; }
+
+/* 头像 */
+.avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    color: white;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+.user .avatar { background-color: #cbd5e0; color: #4a5568; }
+.assistant .avatar { background-color: var(--accent-color); }
+
+/* 气泡 */
+.bubble-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 100%;
+}
+
+.bubble-text {
+    padding: 12px 16px;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    position: relative;
+    transition: all 0.2s;
+}
+
+.user .bubble-text {
+    background-color: var(--user-bubble);
+    color: #2d3748;
+    border-bottom-right-radius: 6px; /* 1. 恢复右下角为圆角 (与基础圆角大小一致) */
+    border-bottom-left-radius: 2px;  /* 2. 新增：将尖角设在左下角 (与 Assistant 一致) */
+}
+
+.assistant .bubble-text {
+    background-color: var(--ai-bubble);
+    color: var(--text-ai);
+    border-bottom-left-radius: 2px;
+    box-shadow: 0 2px 5px rgba(49, 130, 206, 0.2);
+}
+
+/* 播放高亮 */
+.playing-highlight {
+    box-shadow: 0 0 0 3px rgba(221, 107, 32, 0.4);
+    transform: scale(1.01);
+    z-index: 2;
+}
+
+/* 聊天内播放器 */
+.chat-audio {
+    height: 30px;
+    width: 100%;
+    max-width: 240px;
+    border-radius: 15px;
+}
+
+/* Error & Loading */
+.error { color: #c53030; text-align: center; padding: 20px; background: #fff5f5; border-radius: 8px; }
+#loading, #loading-dialogue { text-align: center; color: var(--text-secondary); padding: 30px; font-style: italic; }
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+    .container { padding: 0 10px; }
+    .header-left { flex-direction: column; align-items: flex-start; gap: 5px; width: 100%; }
+    .ref-audio { width: 100%; }
+    .btn-play-all { width: 100%; justify-content: center; margin-top: 10px; }
+    
+    .sample-row { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .sample-row audio { width: 100%; }
+    .message-row { max-width: 95%; }
+}

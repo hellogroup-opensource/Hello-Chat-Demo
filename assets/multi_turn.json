@@ -1,0 +1,11 @@
+[
+    {
+        "audio_path":"assets/dialogues/demo_dialogue1.wav"
+    },
+    {
+        "audio_path":"assets/dialogues/demo_dialogue2.wav"
+    },
+    {
+        "audio_path":"assets/dialogues/demo_dialogue3.wav"
+    }
+]

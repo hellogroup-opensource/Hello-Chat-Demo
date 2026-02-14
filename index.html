@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Model Demo Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+    
+    <header class="paper-header">
+        <h1>Hello-Chat: Towards Realistic Social Audio Interactions</h1>
+        <div class="paper-link">
+            <a href="#" target="_blank">[Paper]</a>
+        </div>
+        <!-- <div class="authors">
+            <span class="author">Firstname Lastname<sup>1</sup></span>,
+            <span class="author">Firstname Lastname<sup>2</sup></span>,
+            <span class="author">Firstname Lastname<sup>1,*</sup></span>
+        </div> -->
+        <div class="affiliations">
+            <span class="affiliation">Computational Intelligence Dept, HelloGroup Inc.</span>
+        </div>
+        <div class="affiliations">
+            <span class="affiliation">School of Artificial Intelligence, Beijing University of Posts and Telecommunications, China</span>
+        </div>
+    </header>
+
+    <div class="info-card" id="abstract">
+        <div class="card-header">Abstract</div>
+        <div class="card-body">
+            <p>
+                We introduce Hello-Chat, an end-to-end Large Audio Language Model (LALM) tailored for real-world conversational scenarios. The model achieves state-of-the-art performance on specific understanding benchmarks and significantly outperforms existing open-source systems in prosodic naturalness, emotional accuracy, and interaction fluency. By explicitly modeling fine-grained acoustic perception and cross-modal alignment, Hello-Chat enables realistic, context-aware spoken interaction between users and AI.
+            </p>
+        </div>
+    </div>
+
+    <div class="info-card" id="toc">
+        <div class="card-header">Contents</div>
+        <div class="card-body">
+            <ul class="toc-list">
+                <li><a href="#abstract">Abstract</a></li>
+                <li><a href="#architecture">Model Architecture</a></li>
+                <li><a href="#samples">Audio Samples (Zero-Shot)</a></li>
+                <li><a href="#dialogue-demo">Dialogue Demo (Multi-Turn Zero-shot)</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="info-card" id="architecture">
+        <div class="card-header">System Overview</div>
+        <div class="card-body" style="text-align: center;">
+            <img src="assets/img/model_architecture.png" alt="Model Architecture" class="arch-img" onerror="this.src='https://placehold.co/800x300?text=Model+Architecture+Diagram'">
+            <p class="caption">
+                <strong>Figure 1:</strong> The overall architecture of Hello-Chat.
+            </p>
+        </div>
+    </div>
+
+    <section id="samples">
+        <div class="section-title-area">
+            <h2>Audio Samples</h2>
+            <p class="subtitle">Single-turn audio synthesis grouped by reference speaker.</p>
+        </div>
+
+        <div id="content-area">
+            <div id="loading">Loading assets/single_turn.json ...</div>
+        </div>
+    </section>
+
+    <section id="dialogue-demo" style="margin-top: 60px;">
+        <div class="section-title-area">
+            <h2>Multi-Turn Conversation</h2>
+            <p class="subtitle">Context-aware human-like conversation with unified text and speech generation (Tester ↔ Bot, Zero-shot).</p>
+        </div>
+
+        <div id="dialogue-container">
+            <div id="loading-dialogue">Loading assets/dialogue.json ...</div>
+        </div>
+    </section>
+
+</div>
+
+<script>
+    /* --- Configuration --- */
+    const SINGLE_TURN_PATH = 'assets/single_turn.json';
+    const DIALOGUE_PATH = 'assets/multi_turn.json';
+
+    /* --- 1. Load Single Turn Samples --- */
+    async function loadSingleTurn() {
+        const contentArea = document.getElementById('content-area');
+        try {
+            const response = await fetch(SINGLE_TURN_PATH);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const data = await response.json();
+
+            // Group by Reference
+            const groupedData = data.reduce((acc, item) => {
+                const refKey = item.reference;
+                if (!acc[refKey]) acc[refKey] = [];
+                acc[refKey].push(item);
+                return acc;
+            }, {});
+
+            contentArea.innerHTML = '';
+
+            for (const [referencePath, samples] of Object.entries(groupedData)) {
+                // Card Container
+                const groupContainer = document.createElement('div');
+                groupContainer.className = 'info-card'; // Reuse generic card style
+
+                // Header
+                const header = document.createElement('div');
+                header.className = 'group-header';
+                header.innerHTML = `
+                    <span class="ref-label">Reference Prompt</span>
+                    <audio controls src="${referencePath}"></audio>
+                `;
+
+                // List Container
+                const listContainer = document.createElement('div');
+                listContainer.className = 'sample-list';
+
+                // Rows
+                samples.forEach(sample => {
+                    const row = document.createElement('div');
+                    row.className = 'sample-row';
+                    row.innerHTML = `
+                        <div class="sample-text">“${sample.text}”</div>
+                        <audio controls src="${sample.audio_path}"></audio>
+                    `;
+                    listContainer.appendChild(row);
+                });
+
+                groupContainer.appendChild(header);
+                groupContainer.appendChild(listContainer);
+                contentArea.appendChild(groupContainer);
+            }
+
+        } catch (error) {
+            console.error('Single Turn Error:', error);
+            contentArea.innerHTML = `<div class="error">Error loading single turn samples.<br>${error.message}</div>`;
+        }
+    }
+
+    /* --- 2. Load Dialogue Samples --- */
+    async function loadDialogue() {
+        const container = document.getElementById('dialogue-container');
+        try {
+            const response = await fetch(DIALOGUE_PATH);
+            if (!response.ok) throw new Error(`HTTP ${response.status}`);
+            const sessions = await response.json();
+
+            container.innerHTML = '';
+
+            sessions.forEach((session, index) => {
+                const card = createDialogueCard(session, index);
+                container.appendChild(card);
+            });
+
+        } catch (error) {
+            console.error('Dialogue Error:', error);
+            container.innerHTML = `<div class="error">Error loading dialogue.<br>${error.message}</div>`;
+        }
+    }
+
+    function createDialogueCard(session, index) {
+        const card = document.createElement('div');
+        card.className = 'info-card dialogue-card';
+
+        // 1. Header
+        const headerHTML = `
+            <div class="group-header">
+                <div class="dialogue-header-content">
+                    <div class="header-left">
+                        <span class="ref-label">Conversation #${index}</span>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // 2. Chat List
+        let chatHTML = `<div class="card-body chat-box" id="session-${index}">`;
+
+        chatHTML += `<audio controls src="${session.audio_path}"></audio>
+            `;
+        chatHTML += `</div>`;
+
+        card.innerHTML = headerHTML + chatHTML;
+        // card.innerHTML = chatHTML;
+        return card;
+    }
+
+    // Initialize
+    document.addEventListener('DOMContentLoaded', () => {
+        loadSingleTurn();
+        loadDialogue();
+    });
+</script> 
+
+</body>
+</html>
