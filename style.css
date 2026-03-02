@@ -113,12 +113,13 @@ body {
 }
 
 #abstract .card-body p {
-    text-align: justify;
+    font-size: 1rem;
+    line-height: 1.85;
 }
 
 .card-body p {
     margin: 0;
-    text-align: justify;
+    text-align: left;
     color: #4a5568;
     line-height: 1.7;
 }
