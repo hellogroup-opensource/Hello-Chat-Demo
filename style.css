@@ -56,15 +56,15 @@ body {
 
 /* Paper Link */
 .paper-link {
-    margin-bottom: 16px;
-    font-family: monospace;
-    font-size: 1.1rem;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    font-weight: 600;
 }
 
 .paper-link a {
     color: var(--accent-color);
     text-decoration: none;
-    font-weight: bold;
 }
 
 .paper-link a:hover { text-decoration: underline; }
